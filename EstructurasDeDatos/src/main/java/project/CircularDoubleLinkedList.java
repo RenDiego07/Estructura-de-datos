@@ -8,14 +8,14 @@ package project;
  * @author alexv
  */
 public class CircularDoubleLinkedList<E> implements List<E> {
-    private CDLLNode last;
+    private CDLLNode<E> last;
     
     public CircularDoubleLinkedList() {
         last = null;
     }
     
-    private CDLLNode getNode(int index) {
-        CDLLNode traveller = last.getNext();
+    private CDLLNode<E> getNode(int index) {
+        CDLLNode<E> traveller = last.getNext();
         for(int i = 0; i < index; i++) {
             traveller = traveller.getNext();
         }
@@ -104,17 +104,63 @@ public class CircularDoubleLinkedList<E> implements List<E> {
 
     @Override
     public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         CDLLNode<E> first = getHeader();
+        if(!(isEmpty())){
+            E content = first.getContent();
+            if(size() == 1){
+                last = null;
+            }else if(size() == 2){
+                last.setNext(last);
+                last.setPrev(last);
+
+            }else{
+                first.getNext().setPrev(last);
+                last.setNext(first.getNext());
+            }
+            return content;
+        }
+        return null;
     }
 
     @Override
     public E removeLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        if(!(isEmpty())){
+            CDLLNode<E> first = getHeader();
+            E content = last.getContent();
+            if(size() == 1){
+                last = null;
+
+            }else if(size() ==2){
+                first.setNext(last.getNext());
+                first.setPrev(last.getPrev());
+                last = first;
+            }else{
+                last.getPrev().setNext(last.getNext());
+                last = last.getPrev();
+                first.setPrev(last);
+            }
+            return content;
+        }
+        return null;
     }
 
     @Override
-    public E remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public E remove(int index)  {
+        if(index <0 || index>= size() || isEmpty()){
+            return null;
+        }else {
+            if( index == 0){
+                return removeFirst();
+            }else if(index== size()-1){
+                return removeLast();
+            }else{
+                CDLLNode<E> nodoBase = getNode(index);
+                nodoBase.getPrev().setNext(nodoBase.getNext());
+                nodoBase.getNext().setPrev(nodoBase.getPrev());
+                return nodoBase.getContent();
+            }
+        }            
     }
 
     @Override
@@ -136,5 +182,11 @@ public class CircularDoubleLinkedList<E> implements List<E> {
         result += traveller.getContent() + "]";
         
         return result;
+    }
+        private CDLLNode<E> getHeader(){
+        if(!(isEmpty())){
+            return last.getNext();
+        }
+        return null;
     }
 }

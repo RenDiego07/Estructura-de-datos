@@ -18,5 +18,17 @@ public class Main {
         list.add(9, 2);
         list.add(99, 5);
         System.out.println(list);
+        
+        list.removeFirst();
+        System.out.println(list);
+        list.removeLast();
+        System.out.println(list);
+        System.out.println("se valido");
+        list.remove(12);
+        System.out.println(list);
+
+
+        
+       
     }
 }
