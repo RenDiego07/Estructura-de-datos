@@ -109,10 +109,6 @@ public class CircularDoubleLinkedList<E> implements List<E> {
             E content = first.getContent();
             if(size() == 1){
                 last = null;
-            }else if(size() == 2){
-                last.setNext(last);
-                last.setPrev(last);
-
             }else{
                 first.getNext().setPrev(last);
                 last.setNext(first.getNext());
@@ -131,10 +127,6 @@ public class CircularDoubleLinkedList<E> implements List<E> {
             if(size() == 1){
                 last = null;
 
-            }else if(size() ==2){
-                first.setNext(last.getNext());
-                first.setPrev(last.getPrev());
-                last = first;
             }else{
                 last.getPrev().setNext(last.getNext());
                 last = last.getPrev();
@@ -149,23 +141,20 @@ public class CircularDoubleLinkedList<E> implements List<E> {
     public E remove(int index)  {
         if(index <0 || index>= size() || isEmpty()){
             return null;
-        }else {
-            if( index == 0){
-                return removeFirst();
-            }else if(index== size()-1){
-                return removeLast();
-            }else{
-                CDLLNode<E> nodoBase = getNode(index);
-                nodoBase.getPrev().setNext(nodoBase.getNext());
-                nodoBase.getNext().setPrev(nodoBase.getPrev());
-                return nodoBase.getContent();
-            }
-        }            
+        }
+        if(index== size()-1){
+            return removeLast();
+        }else{
+            CDLLNode<E> nodoBase = getNode(index);
+            nodoBase.getPrev().setNext(nodoBase.getNext());
+            nodoBase.getNext().setPrev(nodoBase.getPrev());
+            return nodoBase.getContent();
+        }          
     }
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return getNode(index).getContent();
     }
     
     @Override 
@@ -183,7 +172,8 @@ public class CircularDoubleLinkedList<E> implements List<E> {
         
         return result;
     }
-        private CDLLNode<E> getHeader(){
+    
+    private CDLLNode<E> getHeader(){
         if(!(isEmpty())){
             return last.getNext();
         }
