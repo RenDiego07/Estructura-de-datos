@@ -105,25 +105,25 @@ public class CircularDoubleLinkedList<E> implements List<E> {
     @Override
     public E removeFirst() {
          CDLLNode<E> first = getHeader();
+         E content = null;
         if(!(isEmpty())){
-            E content = first.getContent();
+            content = first.getContent();
             if(size() == 1){
                 last = null;
             }else{
                 first.getNext().setPrev(last);
                 last.setNext(first.getNext());
             }
-            return content;
         }
-        return null;
+        return content;
     }
 
     @Override
     public E removeLast() {
-        
+        E content = null;
         if(!(isEmpty())){
             CDLLNode<E> first = getHeader();
-            E content = last.getContent();
+            content = last.getContent();
             if(size() == 1){
                 last = null;
 
@@ -132,9 +132,8 @@ public class CircularDoubleLinkedList<E> implements List<E> {
                 last = last.getPrev();
                 first.setPrev(last);
             }
-            return content;
         }
-        return null;
+        return content;
     }
 
     @Override
