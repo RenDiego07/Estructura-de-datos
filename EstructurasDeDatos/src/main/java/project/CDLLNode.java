@@ -4,7 +4,7 @@
  */
 package project;
 
-/**
+/*
  *
  * @author alexv
  */
