@@ -9,13 +9,21 @@ package project;
  * @author alexv
  */
 public interface List<E> {
-    public boolean isEmpty();
-    public int size();
-    public boolean addFirst(E element);
-    public boolean addLast(E element);
-    public boolean add(E element, int index);
-    public E removeFirst();
-    public E removeLast();
-    public E remove(int index);
-    public E get(int index);
+    boolean isEmpty();
+
+    int size();
+
+    boolean addFirst(E element);
+
+    boolean addLast(E element);
+
+    boolean add(E element, int index);
+
+    E removeFirst();
+
+    E removeLast();
+
+    E remove(int index);
+
+    E get(int index);
 }

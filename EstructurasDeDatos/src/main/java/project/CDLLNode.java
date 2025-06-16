@@ -9,14 +9,12 @@ package project;
  * @author alexv
  */
 public class CDLLNode<E> {
-    private E content;
+    private final E content;
     private CDLLNode next;
     private CDLLNode prev;
     
     public CDLLNode(E content) {
         this.content = content;
-        this.next = null;
-        this.prev = null;
     }
     
     public E getContent() {
